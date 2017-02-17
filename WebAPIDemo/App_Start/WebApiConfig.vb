@@ -6,6 +6,9 @@ Imports Newtonsoft.Json.Serialization
 
 Public Module WebApiConfig
     Public Sub Register(config As HttpConfiguration)
+        config.Filters.Add(New RequireHttpsAttribute())
+        config.Filters.Add(New BasicAuthenticationAttribute())
+
         ' Web API configuration and services
         ' Configure Web API to use only bearer token authentication.
         config.SuppressDefaultHostAuthentication()
@@ -19,9 +22,6 @@ Public Module WebApiConfig
             routeTemplate:="api/{controller}/{id}",
             defaults:=New With {.id = RouteParameter.Optional}
         )
-
-        'config.Filters.Add(New RequireHttpsAttribute())
-        'config.Filters.Add(New BasicAuthenticationAttribute())
 
         config.Formatters.JsonFormatter.SupportedMediaTypes.Add(New MediaTypeHeaderValue("text/html"))
     End Sub

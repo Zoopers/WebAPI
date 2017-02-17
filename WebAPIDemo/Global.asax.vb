@@ -13,8 +13,4 @@ Public Class WebApiApplication
         BundleConfig.RegisterBundles(BundleTable.Bundles)
     End Sub
 
-    'Public Shared Sub RegisterGlobalFilters(filters As GlobalFilterCollection)
-    '    filters.Add(New RequireHttpsAttribute())
-    'End Sub
-
 End Class

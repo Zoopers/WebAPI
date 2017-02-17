@@ -9,9 +9,7 @@ Public Class License
     Private c_guidLicenseType As String
     Private c_intLicenseStatus_ID As String
     Private c_dteApplication As Date = NULL_DATE
-    'Private c_test As Integer = Nothing
 
-    'Private Sub New(guidLicense As Guid, strName As String, guidLicenseType As String, intLicenseStatus_ID As String, dteApplication As Date, test As Integer)
     Private Sub New(guidLicense As Guid, strName As String, guidLicenseType As String, intLicenseStatus_ID As String, dteApplication As Date)
         c_guidLicense = guidLicense
         c_strName = strName
@@ -57,15 +55,6 @@ Public Class License
         End Set
     End Property
 
-    'Public Property Test() As Integer
-    '    Get
-    '        Return c_test
-    '    End Get
-    '    Set(Value As Integer)
-    '        c_test = Value
-    '    End Set
-    'End Property
-
     Public Shared Function GetLicenseInstance(drLicense As DataRow) As License
         Dim guidLicense As Guid
         Dim strName As String = ""
@@ -79,9 +68,6 @@ Public Class License
         LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.Type)), guidLicenseType)
         LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.Status)), intLicenseStatus_ID)
         LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.DateApplication)), dteApplication)
-        'LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.RelatedLicenseCount)), test)
-
-        'Return New License(guidLicense, strName, guidLicenseType, intLicenseStatus_ID, dteApplication, test)
 
         Return New License(guidLicense, strName, guidLicenseType, intLicenseStatus_ID, dteApplication)
     End Function

@@ -15,34 +15,28 @@ Public Class ValuesController
     Private strStrings As List(Of String) = New List(Of String)({"value0", "value1", "value2"})
     Private ReadOnly repository As ILicenseRepository = New LicenseRepository()
 
-    '<BasicAuthentication>
     ' GET api/values
     <HttpGet>
     Public Function GetValues() As HttpResponseMessage
         Dim licenses As IEnumerable(Of License) = Nothing
-        'Dim strUsername As String
+        Dim strUsername As String
+        Dim objHttpRequestMessage As HttpResponseMessage
 
-        'strUsername = Thread.CurrentPrincipal.Identity.Name
+        strUsername = Thread.CurrentPrincipal.Identity.Name
 
-        'If strUsername = "admin" Then
-        '    licenses = repository.GetAll()
+        If strUsername = "admin" Then
+            licenses = repository.GetAll()
 
-        '    If licenses Is Nothing Then
-        '        Throw New HttpResponseException(HttpStatusCode.NotFound)
-        '    End If
+            If licenses Is Nothing Then
+                Throw New HttpResponseException(HttpStatusCode.NotFound)
+            End If
 
-        '    Return Request.CreateResponse(HttpStatusCode.OK, licenses)
-        'Else
-        '    Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorised access")
-        'End If
-
-        licenses = repository.GetAll()
-
-        If licenses Is Nothing Then
-            Throw New HttpResponseException(HttpStatusCode.NotFound)
+            objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.OK, licenses)
+        Else
+            objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorised access")
         End If
 
-        Return Request.CreateResponse(HttpStatusCode.OK, licenses)
+        Return objHttpRequestMessage
     End Function
 
     ' GET api/values/5
