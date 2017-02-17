@@ -15,31 +15,39 @@ Public Class ValuesController
     Private strStrings As List(Of String) = New List(Of String)({"value0", "value1", "value2"})
     Private ReadOnly repository As ILicenseRepository = New LicenseRepository()
 
+    '<BasicAuthentication>
     ' GET api/values
     <HttpGet>
-    <BasicAuthentication>
     Public Function GetValues() As HttpResponseMessage
         Dim licenses As IEnumerable(Of License) = Nothing
-        Dim strUsername As String
+        'Dim strUsername As String
 
-        strUsername = Thread.CurrentPrincipal.Identity.Name
+        'strUsername = Thread.CurrentPrincipal.Identity.Name
 
-        If strUsername = "admin" Then
-            licenses = repository.GetAll()
+        'If strUsername = "admin" Then
+        '    licenses = repository.GetAll()
 
-            If licenses Is Nothing Then
-                Throw New HttpResponseException(HttpStatusCode.NotFound)
-            End If
+        '    If licenses Is Nothing Then
+        '        Throw New HttpResponseException(HttpStatusCode.NotFound)
+        '    End If
 
-            Return Request.CreateResponse(HttpStatusCode.OK, licenses)
-        Else
-            Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorised access")
+        '    Return Request.CreateResponse(HttpStatusCode.OK, licenses)
+        'Else
+        '    Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorised access")
+        'End If
+
+        licenses = repository.GetAll()
+
+        If licenses Is Nothing Then
+            Throw New HttpResponseException(HttpStatusCode.NotFound)
         End If
+
+        Return Request.CreateResponse(HttpStatusCode.OK, licenses)
     End Function
 
     ' GET api/values/5
     <HttpGet>
-    Public Function GetValue(id As Guid) As License
+    Public Function GetValue(id As Guid) As HttpResponseMessage
         Dim license As License
 
         license = repository.GetLicense(id)
@@ -48,7 +56,7 @@ Public Class ValuesController
             Throw New HttpResponseException(HttpStatusCode.NotFound)
         End If
 
-        Return license
+        Return Request.CreateResponse(HttpStatusCode.OK, license)
     End Function
 
     ' POST api/values
