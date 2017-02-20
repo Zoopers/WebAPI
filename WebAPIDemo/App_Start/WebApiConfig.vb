@@ -6,8 +6,8 @@ Imports Newtonsoft.Json.Serialization
 
 Public Module WebApiConfig
     Public Sub Register(config As HttpConfiguration)
-        config.Filters.Add(New RequireHttpsAttribute())
-        config.Filters.Add(New BasicAuthenticationAttribute())
+        'config.Filters.Add(New RequireHttpsAttribute())
+        'config.Filters.Add(New BasicAuthenticationAttribute())
 
         ' Web API configuration and services
         ' Configure Web API to use only bearer token authentication.

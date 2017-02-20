@@ -6,17 +6,16 @@ Imports SpatialDimensionLibrary.Strings
 Public Class License
     Private c_guidLicense As Guid
     Private c_strName As String = ""
-    Private c_guidLicenseType As String
-    Private c_intLicenseStatus_ID As String
+    Private c_strLicenseType As String
+    Private c_strLicenseStatus_ID As String
     Private c_dteApplication As Date = NULL_DATE
 
-    Private Sub New(guidLicense As Guid, strName As String, guidLicenseType As String, intLicenseStatus_ID As String, dteApplication As Date)
+    Public Sub New(guidLicense As Guid, strName As String, guidLicenseType As String, intLicenseStatus_ID As String, dteApplication As Date)
         c_guidLicense = guidLicense
         c_strName = strName
-        c_guidLicenseType = guidLicenseType
-        c_intLicenseStatus_ID = intLicenseStatus_ID
+        c_strLicenseType = guidLicenseType
+        c_strLicenseStatus_ID = intLicenseStatus_ID
         c_dteApplication = dteApplication
-        'c_test = test
     End Sub
 
     Public Property License_ID() As Guid
@@ -39,19 +38,28 @@ Public Class License
 
     Public Property License_Type() As String
         Get
-            Return c_guidLicenseType
+            Return c_strLicenseType
         End Get
         Set(Value As String)
-            c_guidLicenseType = Value
+            c_strLicenseType = Value
         End Set
     End Property
 
     Public Property License_Status() As String
         Get
-            Return c_intLicenseStatus_ID
+            Return c_strLicenseStatus_ID
         End Get
         Set(Value As String)
-            c_intLicenseStatus_ID = Value
+            c_strLicenseStatus_ID = Value
+        End Set
+    End Property
+
+    Public Property License_Application_Date() As Date
+        Get
+            Return c_dteApplication
+        End Get
+        Set(Value As Date)
+            c_dteApplication = Value
         End Set
     End Property
 
@@ -61,7 +69,6 @@ Public Class License
         Dim guidLicenseType As String = ""
         Dim intLicenseStatus_ID As String = ""
         Dim dteApplication As Date = NULL_DATE
-        Dim test As Integer = Nothing
 
         LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.ID)), guidLicense)
         LoadDBValue(drLicense.Item(FieldName_License(enumTableField_License.Name)), strName)
@@ -72,12 +79,27 @@ Public Class License
         Return New License(guidLicense, strName, guidLicenseType, intLicenseStatus_ID, dteApplication)
     End Function
 
+    Public Shared Function GetFCClassLibraryLicenseInstance(DBCon As DBConnection, license As License, FCClassLibraryLicense As FCClassLibrary.License) As FCClassLibrary.License
+        Dim strName As String = ""
+        Dim strLicenseType As String = ""
+        Dim strLicenseStatus_ID As String = ""
+        Dim dteApplication As Date = NULL_DATE
+
+        FCClassLibraryLicense.LicenseName = license.c_strName
+        FCClassLibraryLicense.LicenseTypeID = DBCon.LookupValue(FieldName_LicenseType(enumTableField_LicenseType.LicenseType), FieldName_LicenseType(enumTableField_LicenseType.LicenseTypeID), "tblLicenseType", license.c_strLicenseType)
+        FCClassLibraryLicense.LicenseStatus_ID = DBCon.LookupValue(FieldName_LicenseStatus(enumTableField_LicenseStatus.LicenseStatus), FieldName_LicenseStatus(enumTableField_LicenseStatus.ID), "lutLicenseStatus", license.c_strLicenseStatus_ID)
+        FCClassLibraryLicense.DateApplication = license.c_dteApplication
+
+        FCClassLibraryLicense.Save(DBCon, g_LookupManager, "en", "English")
+
+        Return FCClassLibraryLicense
+    End Function
+
     Public Shared Function GetLicenseInstance(ByRef DBCon As DBConnection, guidLicense As Guid, ByRef objLookupManager As LookupManager, objAuthorisation As AuthorisationController, intLicenseLoadFlags As Asset.enumLoadFlags, blnIsOldCopy As Boolean, Optional strLanguage As String = "") As License
         Dim strName As String = ""
         Dim guidLicenseType As String = ""
         Dim intLicenseStatus_ID As String = ""
         Dim dteApplication As Date = NULL_DATE
-        Dim test As Integer = Nothing
         Dim objColumns As TableFieldList(Of enumTableField_License)
         Dim dtLicense As DataTable
         Dim strWhere As String = ""
@@ -88,7 +110,7 @@ Public Class License
         objColumns.AddField(enumTableField_License.Type)
         objColumns.AddField(enumTableField_License.Status)
         objColumns.AddField(enumTableField_License.DateApplication)
-        objColumns.AddField(enumTableField_License.RelatedLicenseCount)
+        'objColumns.AddField(enumTableField_License.RelatedLicenseCount)
 
         strWhere += WhereLicense_LicenseID(guidLicense)
 
