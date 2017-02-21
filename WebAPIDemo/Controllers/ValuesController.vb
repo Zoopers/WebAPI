@@ -8,14 +8,18 @@ Imports SpatialDimensionLibrary.Database
 Imports SpatialDimensionLibrary.Strings
 
 '<Authorize>
+<RoutePrefix("api/values")>
 Public Class ValuesController
     Inherits ApiController
 
     Private DBCon As DBConnection
     Private Shared strStrings As List(Of String) = New List(Of String)({"value0", "value1", "value2"})
-    Private ReadOnly repository As ILicenseRepository = New LicenseRepository()
+    Private ReadOnly licenseRepository As IRepository(Of License) = New LicenseRepository()
+    Private ReadOnly licenseTypeRepository As IRepository(Of LicenseType) = New LicenseTypeRepository()
+    Private ReadOnly licenseStatusRepository As IRepository(Of LicenseStatus) = New LicenseStatusRepository()
 
     ' GET api/values
+    <Route("")>
     <HttpGet>
     Public Function GetValues() As HttpResponseMessage
         Dim licenses As IEnumerable(Of License) = Nothing
@@ -36,7 +40,7 @@ Public Class ValuesController
         '    objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.Unauthorized)
         'End If
 
-        licenses = repository.GetAll()
+        licenses = licenseRepository.GetAll()
 
         If licenses Is Nothing Then
             Throw New HttpResponseException(HttpStatusCode.NotFound)
@@ -48,6 +52,7 @@ Public Class ValuesController
     End Function
 
     ' GET api/values/5
+    <Route("{id:Guid}")>
     <HttpGet>
     Public Function GetValue(id As Guid) As HttpResponseMessage
         Dim license As License
@@ -68,7 +73,7 @@ Public Class ValuesController
         '    objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.Unauthorized)
         'End If
 
-        license = repository.GetLicense(id)
+        license = licenseRepository.GetObject(id)
 
         If license Is Nothing Then
             Throw New HttpResponseException(HttpStatusCode.NotFound)
@@ -103,7 +108,7 @@ Public Class ValuesController
         '    objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.NotFound)
         'End If
 
-        blnUpdated = repository.Update(id, value)
+        blnUpdated = licenseRepository.Update(id, value)
 
         If blnUpdated = False Then
             Throw New HttpResponseException(HttpStatusCode.NotFound)
@@ -143,7 +148,7 @@ Public Class ValuesController
         'End If
 
         Try
-            blnSuccessful = repository.Remove(id)
+            blnSuccessful = licenseRepository.Remove(id)
 
             If Not blnSuccessful Then
                 objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.NotFound)
@@ -153,6 +158,40 @@ Public Class ValuesController
         Catch ex As Exception
             objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.BadRequest)
         End Try
+
+        Return objHttpRequestMessage
+    End Function
+
+    <Route("types")>
+    <HttpGet>
+    Public Function GetLicenseTypes() As HttpResponseMessage
+        Dim licenseTypes As IEnumerable(Of LicenseType) = Nothing
+        Dim objHttpRequestMessage As HttpResponseMessage
+
+        licenseTypes = licenseTypeRepository.GetAll()
+
+        If licenseTypes Is Nothing Then
+            Throw New HttpResponseException(HttpStatusCode.NotFound)
+        End If
+
+        objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.OK, licenseTypes)
+
+        Return objHttpRequestMessage
+    End Function
+
+    <Route("statuses")>
+    <HttpGet>
+    Public Function GetLicenseStatuses() As HttpResponseMessage
+        Dim licenseStatuses As IEnumerable(Of LicenseStatus) = Nothing
+        Dim objHttpRequestMessage As HttpResponseMessage
+
+        licenseStatuses = licenseStatusRepository.GetAll()
+
+        If licenseStatuses Is Nothing Then
+            Throw New HttpResponseException(HttpStatusCode.NotFound)
+        End If
+
+        objHttpRequestMessage = Request.CreateResponse(HttpStatusCode.OK, licenseStatuses)
 
         Return objHttpRequestMessage
     End Function

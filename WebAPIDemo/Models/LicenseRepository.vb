@@ -4,7 +4,7 @@ Imports SpatialDimensionLibrary.Database
 Imports System.Threading
 
 Public Class LicenseRepository
-    Implements ILicenseRepository
+    Implements IRepository(Of License)
 
     Private DBCon As DBConnection
     Private licenses As List(Of License)
@@ -14,7 +14,7 @@ Public Class LicenseRepository
         modDBConnectionFactory.DefaultConnectionString = ConfigurationManager.ConnectionStrings("DBCS").ConnectionString
     End Sub
 
-    Private Function ILicenseRepository_GetAll() As IEnumerable(Of License) Implements ILicenseRepository.GetAll
+    Private Function ILicenseRepository_GetAll() As IEnumerable(Of License) Implements IRepository(Of License).GetAll
         Dim dtLicenses As DataTable
         Dim objColumns As TableFieldList(Of enumTableField_License)
         Dim license As License
@@ -46,7 +46,7 @@ Public Class LicenseRepository
         Return licenses
     End Function
 
-    Private Function ILicenseRepository_GetLicense(guidLicense As Guid) As License Implements ILicenseRepository.GetLicense
+    Private Function ILicenseRepository_GetLicense(guidLicense As Guid) As License Implements IRepository(Of License).GetObject
         Dim license As License
         Dim objLookupManager As LookupManager
 
@@ -63,11 +63,11 @@ Public Class LicenseRepository
         Return license
     End Function
 
-    Private Function ILicenseRepository_Add(License As License) As License Implements ILicenseRepository.Add
+    Private Function ILicenseRepository_Add(License As License) As License Implements IRepository(Of License).Add
         Throw New NotImplementedException()
     End Function
 
-    Private Function ILicenseRepository_Remove(guidLicenses As Guid) As Boolean Implements ILicenseRepository.Remove
+    Private Function ILicenseRepository_Remove(guidLicenses As Guid) As Boolean Implements IRepository(Of License).Remove
         'Dim strWhere As String = ""
 
         'strWhere += WhereLicense_LicenseID(guidLicense)
@@ -81,7 +81,7 @@ Public Class LicenseRepository
         End Try
     End Function
 
-    Private Function ILicenseRepository_Update(guidLicense As Guid, updatedLicense As License) As Boolean Implements ILicenseRepository.Update
+    Private Function ILicenseRepository_Update(guidLicense As Guid, updatedLicense As License) As Boolean Implements IRepository(Of License).Update
         Dim license As FCClassLibrary.License
         Dim objLookupManager As LookupManager
 
@@ -220,7 +220,9 @@ Public Class LicenseRepository
             'loop through all objects to delete unless the process was canceled
             'Do While intCountProcessed <= guidLicenses.Count - 1
 
-            objDeletableObject = DeletableObjectFactory.NewDeletableObject(DBcon, g_LookupManager, "English", enumDeletableObjectType.License, guidLicenses)
+            objLookupmanager = New LookupManagerManager()
+
+            objDeletableObject = DeletableObjectFactory.NewDeletableObject(DBcon, objLookupmanager, "English", enumDeletableObjectType.License, guidLicenses)
 
             'objDeletableObject.ExecuteAsynchronousProcessOnDelete = False
 

@@ -272,9 +272,13 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
+    <Compile Include="Models\clsLicenseStatus.vb" />
+    <Compile Include="Models\clsLicenseType.vb" />
     <Compile Include="Models\IdentityModels.vb" />
-    <Compile Include="Models\ILicenseRepository.vb" />
+    <Compile Include="Models\IRepository.vb" />
     <Compile Include="Models\LicenseRepository.vb" />
+    <Compile Include="Models\LicenseStatusRepository.vb" />
+    <Compile Include="Models\LicenseTypeRepository.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

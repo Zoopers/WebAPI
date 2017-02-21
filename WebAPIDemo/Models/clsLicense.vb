@@ -4,14 +4,14 @@ Imports SpatialDimensionLibrary.Database
 Imports SpatialDimensionLibrary.Strings
 
 Public Class License
-    Private c_guidLicense As Guid
+    Private c_idLicense As Guid
     Private c_strName As String = ""
     Private c_strLicenseType As String
     Private c_strLicenseStatus_ID As String
     Private c_dteApplication As Date = NULL_DATE
 
     Public Sub New(guidLicense As Guid, strName As String, guidLicenseType As String, intLicenseStatus_ID As String, dteApplication As Date)
-        c_guidLicense = guidLicense
+        c_idLicense = guidLicense
         c_strName = strName
         c_strLicenseType = guidLicenseType
         c_strLicenseStatus_ID = intLicenseStatus_ID
@@ -20,10 +20,10 @@ Public Class License
 
     Public Property License_ID() As Guid
         Get
-            Return c_guidLicense
+            Return c_idLicense
         End Get
         Set(Value As Guid)
-            c_guidLicense = Value
+            c_idLicense = Value
         End Set
     End Property
 
@@ -84,13 +84,16 @@ Public Class License
         Dim strLicenseType As String = ""
         Dim strLicenseStatus_ID As String = ""
         Dim dteApplication As Date = NULL_DATE
+        Dim objLookupManager As LookupManager
+
+        objLookupManager = New LookupManagerManager()
 
         FCClassLibraryLicense.LicenseName = license.c_strName
         FCClassLibraryLicense.LicenseTypeID = DBCon.LookupValue(FieldName_LicenseType(enumTableField_LicenseType.LicenseType), FieldName_LicenseType(enumTableField_LicenseType.LicenseTypeID), "tblLicenseType", license.c_strLicenseType)
         FCClassLibraryLicense.LicenseStatus_ID = DBCon.LookupValue(FieldName_LicenseStatus(enumTableField_LicenseStatus.LicenseStatus), FieldName_LicenseStatus(enumTableField_LicenseStatus.ID), "lutLicenseStatus", license.c_strLicenseStatus_ID)
         FCClassLibraryLicense.DateApplication = license.c_dteApplication
 
-        FCClassLibraryLicense.Save(DBCon, g_LookupManager, "en", "English")
+        'FCClassLibraryLicense.Save(DBCon, objLookupManager, "en", "English")
 
         Return FCClassLibraryLicense
     End Function
