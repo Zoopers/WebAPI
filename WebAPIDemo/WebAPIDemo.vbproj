@@ -276,6 +276,7 @@
     <Compile Include="Models\clsLicenseType.vb" />
     <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="Models\IRepository.vb" />
+    <Compile Include="Models\LicenseModel.vb" />
     <Compile Include="Models\LicenseRepository.vb" />
     <Compile Include="Models\LicenseStatusRepository.vb" />
     <Compile Include="Models\LicenseTypeRepository.vb" />

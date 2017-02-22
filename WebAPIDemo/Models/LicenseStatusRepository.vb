@@ -16,31 +16,31 @@ Public Class LicenseStatusRepository
     End Sub
 
     Public Function Add(obj As LicenseStatus) As LicenseStatus Implements IRepository(Of LicenseStatus).Add
-        Dim dtLicenseTypes As DataTable
-        Dim objColumns As TableFieldList(Of enumTableField_LicenseStatus)
-        Dim licenseType As LicenseType
+        'Dim dtLicenseTypes As DataTable
+        'Dim objColumns As TableFieldList(Of enumTableField_LicenseStatus)
+        'Dim licenseType As LicenseType
 
-        objColumns = New TableFieldList(Of enumTableField_LicenseStatus)
-        objColumns.AddField(enumTableField_LicenseStatus.ID)
-        objColumns.AddField(enumTableField_LicenseStatus.LicenseStatus)
+        'objColumns = New TableFieldList(Of enumTableField_LicenseStatus)
+        'objColumns.AddField(enumTableField_LicenseStatus.ID)
+        'objColumns.AddField(enumTableField_LicenseStatus.LicenseStatus)
 
-        Try
-            DBCon = NewConnection()
+        'Try
+        '    DBCon = NewConnection()
 
-            dtLicenseTypes = GetTable_LicenseType(DBCon, "")
+        '    dtLicenseTypes = GetTable_LicenseType(DBCon, "")
 
-            licenseStatuses = New List(Of LicenseType)
+        '    licenseStatuses = New List(Of LicenseType)
 
-            For Each drlicenseType As DataRow In dtLicenseTypes.Rows
-                licenseType = LicenseType.GetLicenseTypeInstance(drlicenseType)
+        '    For Each drlicenseType As DataRow In dtLicenseTypes.Rows
+        '        licenseType = LicenseType.GetLicenseTypeInstance(drlicenseType)
 
-                licenseStatuses.Add(licenseType)
-            Next
-        Catch ex As Exception
-            Return Nothing
-        End Try
+        '        licenseStatuses.Add(licenseType)
+        '    Next
+        'Catch ex As Exception
+        '    Return Nothing
+        'End Try
 
-        Return licenseStatuses
+        'Return licenseStatuses
     End Function
 
     Public Function GetAll() As IEnumerable(Of LicenseStatus) Implements IRepository(Of LicenseStatus).GetAll
