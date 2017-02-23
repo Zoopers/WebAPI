@@ -272,12 +272,16 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
+    <Compile Include="Models\AgreementModel.vb" />
     <Compile Include="Models\clsLicenseStatus.vb" />
     <Compile Include="Models\clsLicenseType.vb" />
+    <Compile Include="Models\enumLicenseSearch.vb" />
+    <Compile Include="Models\enumLicenseSearchParameters.vb" />
     <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="Models\IRepository.vb" />
     <Compile Include="Models\LicenseModel.vb" />
     <Compile Include="Models\LicenseRepository.vb" />
+    <Compile Include="Models\LicenseSearch.vb" />
     <Compile Include="Models\LicenseStatusRepository.vb" />
     <Compile Include="Models\LicenseTypeRepository.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
