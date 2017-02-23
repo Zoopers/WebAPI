@@ -5,11 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WebAPIDemo", "WebAPIDemo\WebAPIDemo.vbproj", "{729B3428-9FA0-491E-88D7-D1E8E2D825A7}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FCClassLibrary", "..\..\..\FCClassLibrary\FCClassLibrary.vbproj", "{809D71C5-FC36-4D55-9386-ED28CE946583}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FCClassLibrary", "..\..\..\..\JarrydFlexi\FCClassLibrary\FCClassLibrary.vbproj", "{809D71C5-FC36-4D55-9386-ED28CE946583}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SpatialDimensionLibrary", "..\..\..\FCSpatialDimensionLibrary\SpatialDimensionLibrary.vbproj", "{14974A57-7C20-4FD8-80E6-81382C7F7003}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SpatialDimensionLibrary", "..\..\..\..\JarrydFlexi\FCSpatialDimensionLibrary\SpatialDimensionLibrary.vbproj", "{14974A57-7C20-4FD8-80E6-81382C7F7003}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GeodatabaseRuntimeTools", "..\..\..\GeodatabaseRuntimeTools\GeodatabaseRuntimeTools.vbproj", "{064B19AB-0E0E-4984-A9E7-E9E3F18FFF57}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GeodatabaseRuntimeTools", "..\..\..\..\JarrydFlexi\GeodatabaseRuntimeTools\GeodatabaseRuntimeTools.vbproj", "{064B19AB-0E0E-4984-A9E7-E9E3F18FFF57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

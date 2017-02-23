@@ -398,13 +398,17 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\FCClassLibrary\FCClassLibrary.vbproj">
+    <ProjectReference Include="..\..\..\..\..\JarrydFlexi\FCClassLibrary\FCClassLibrary.vbproj">
       <Project>{809d71c5-fc36-4d55-9386-ed28ce946583}</Project>
       <Name>FCClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\FCSpatialDimensionLibrary\SpatialDimensionLibrary.vbproj">
+    <ProjectReference Include="..\..\..\..\..\JarrydFlexi\FCSpatialDimensionLibrary\SpatialDimensionLibrary.vbproj">
       <Project>{14974a57-7c20-4fd8-80e6-81382c7f7003}</Project>
       <Name>SpatialDimensionLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\JarrydFlexi\GeodatabaseRuntimeTools\GeodatabaseRuntimeTools.vbproj">
+      <Project>{064b19ab-0e0e-4984-a9e7-e9e3f18fff57}</Project>
+      <Name>GeodatabaseRuntimeTools</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
